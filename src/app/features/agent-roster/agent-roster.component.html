@@ -1,0 +1,20 @@
+<section class="agent-roster">
+  <header class="agent-roster__header">
+    <h2>Agents</h2>
+    <button matButton="text" type="button" (click)="agentApi.refresh()">Refresh</button>
+  </header>
+
+  @if (agentApi.error()) {
+    <app-error-banner message="Failed to load agents." (retry)="agentApi.refresh()" />
+  } @else if (agentApi.isLoading() && agentApi.agents().length === 0) {
+    <app-loading-spinner label="Loading agents…" />
+  } @else {
+    <div class="agent-roster__list">
+      @for (agent of agentApi.agents(); track agent.id) {
+        <app-agent-row [agent]="agent" />
+      } @empty {
+        <p class="agent-roster__empty">No agents found.</p>
+      }
+    </div>
+  }
+</section>

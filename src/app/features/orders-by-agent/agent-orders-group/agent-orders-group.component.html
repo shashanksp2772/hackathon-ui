@@ -1,0 +1,47 @@
+<div class="agent-orders-group">
+  <header class="agent-orders-group__header">
+    <div class="agent-orders-group__agent">
+      <span class="agent-orders-group__name">{{ agent().name }}</span>
+      <span class="agent-orders-group__id">{{ agent().id }}</span>
+    </div>
+    <app-status-badge [status]="agent().status" />
+    <span class="agent-orders-group__count">{{ orders().length }} order(s)</span>
+  </header>
+
+  @if (orders().length > 0) {
+    <table class="agent-orders-group__table">
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Description</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of orders(); track order.id) {
+          <tr [class.agent-orders-group__row--warn]="needsAttention(order)">
+            <td class="agent-orders-group__order-id">{{ order.id }}</td>
+            <td>{{ order.description }}</td>
+            <td>
+              <app-status-badge [status]="order.status" />
+              @if (needsAttention(order)) {
+                <span class="agent-orders-group__warning">⚠ Needs attention — agent offline</span>
+                <button
+                  matButton="outlined"
+                  type="button"
+                  class="agent-orders-group__reassign"
+                  [disabled]="reassigningOrderId() === order.id"
+                  (click)="reassign.emit(order.id)"
+                >
+                  {{ reassigningOrderId() === order.id ? 'Reassigning…' : 'Reassign' }}
+                </button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p class="agent-orders-group__empty">No orders currently assigned.</p>
+  }
+</div>

@@ -1,59 +1,80 @@
-# HackathonUi
+# ZipRun Ops Console — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.2.
+Angular ops interface for the AI Reassignment Engine: a live queue of
+pending reassignment suggestions (with AI/rule-based reasoning, confidence,
+and the agentic re-plan badge) and an agent roster with a control to flip
+agents offline for the demo. See [`../ADR.md`](../ADR.md) for the
+architectural decisions behind this build.
 
-## Development server
+## Tech stack
 
-To start a local development server, run:
+- Angular 22, standalone components throughout
+- Signals end-to-end: `signal`, `computed`, `input`/`output`, and
+  `rxResource()` for every data-fetching service (auto-polling +
+  `.isLoading()`/`.error()`/`.reload()`, no hand-rolled RxJS plumbing)
+- The `@Service()` decorator (this version's auto-provided-at-root
+  alternative to `@Injectable({providedIn:'root'})`)
+- Angular Material (M3, CSS-variable theming — no `@angular/animations`
+  dependency needed)
+- Zoneless (no `zone.js`)
 
-```bash
-ng serve
-```
+## Prerequisites
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Node.js 20+
+- The backend running at `http://localhost:8080` (see
+  [`../hackathon-backend/README.md`](../hackathon-backend/README.md))
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Setup (under 5 minutes)
 
 ```bash
-ng build
+npm install
+npx ng serve
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Open `http://localhost:4200`.
 
-## Running unit tests
+## Configuration
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+The backend base URL is an `InjectionToken` in
+[`src/app/core/config/api.config.ts`](src/app/core/config/api.config.ts) —
+defaults to `http://localhost:8080`. The poll interval (default 5s) lives
+alongside it as `POLL_INTERVAL_MS`.
+
+## Project structure
+
+```
+src/app/
+  core/       # models, config, and API services (data-access layer)
+  shared/     # reusable presentational components (badges, spinner, error banner)
+  features/   # dashboard, reassignment-queue (+ suggestion-card), agent-roster (+ agent-row)
+```
+
+Each component follows the `name.component.ts/html/scss/spec.ts` convention.
+Leaf components (`suggestion-card`, `agent-row`) own their own mutation
+calls directly via their API service; container components
+(`reassignment-queue`, `agent-roster`) coordinate cross-resource refreshes.
+
+## Seeing the agentic loop end-to-end
+
+With both the backend and Ollama running:
+
+1. Open the app — the agent roster shows the 5 seeded agents.
+2. Click **Set Offline** on an agent that still has active orders (e.g.
+   Priya Sharma / AGT-001).
+3. Within one poll cycle (~5s), suggestion cards appear in the
+   reassignment queue with a pulsing teal **AUTO RE-PLAN** badge, the
+   recommended agent, confidence, and reasoning.
+4. **Accept** or **Reject** — the card disappears and the agent roster's
+   load updates.
+
+## Tests
 
 ```bash
-ng test
+npx ng test --watch=false
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+## Build
 
 ```bash
-ng e2e
+npx ng build
 ```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

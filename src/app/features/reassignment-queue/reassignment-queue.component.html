@@ -1,0 +1,25 @@
+<section class="reassignment-queue">
+  <header class="reassignment-queue__header">
+    <h2>Reassignment queue</h2>
+    <button matButton="text" type="button" (click)="refreshAll()">Refresh</button>
+  </header>
+
+  @if (error()) {
+    <app-error-banner message="Failed to load the reassignment queue." (retry)="refreshAll()" />
+  } @else if (isLoading()) {
+    <app-loading-spinner label="Loading suggestions…" />
+  } @else {
+    <div class="reassignment-queue__list">
+      @for (row of rows(); track row.suggestion.id) {
+        <app-suggestion-card
+          [suggestion]="row.suggestion"
+          [orderDescription]="row.orderDescription"
+          [agentName]="row.agentName"
+          (actionCompleted)="onActionCompleted()"
+        />
+      } @empty {
+        <p class="reassignment-queue__empty">No pending reassignments.</p>
+      }
+    </div>
+  }
+</section>

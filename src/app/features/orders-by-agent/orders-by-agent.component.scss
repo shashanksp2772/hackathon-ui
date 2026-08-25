@@ -1,0 +1,26 @@
+.orders-by-agent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.orders-by-agent__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2 {
+    font-size: 18px;
+    margin: 0;
+  }
+}
+
+.orders-by-agent__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

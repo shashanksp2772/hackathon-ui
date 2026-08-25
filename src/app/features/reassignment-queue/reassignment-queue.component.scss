@@ -1,0 +1,31 @@
+.reassignment-queue {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reassignment-queue__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2 {
+    font-size: 15px;
+    margin: 0;
+  }
+}
+
+.reassignment-queue__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reassignment-queue__empty {
+  padding: 16px;
+  font-size: 13px;
+  color: #6b6559;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}

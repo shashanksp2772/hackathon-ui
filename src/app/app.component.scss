@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: #f5f2eb;
+}
+
+.app-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.app-toolbar__title {
+  font-weight: 600;
+}
+
+.app-toolbar__nav {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.app-toolbar__nav a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  opacity: 0.75;
+  transition: opacity 0.15s, background 0.15s;
+
+  &:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.app-toolbar__link--active {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.18);
+}

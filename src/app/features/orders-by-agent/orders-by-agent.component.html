@@ -1,0 +1,27 @@
+<section class="orders-by-agent">
+  <header class="orders-by-agent__header">
+    <h2>Orders by agent</h2>
+    <button matButton="text" type="button" (click)="refreshAll()">Refresh</button>
+  </header>
+
+  @if (reassignError()) {
+    <app-error-banner [message]="reassignError()!" (retry)="retryReassign()" />
+  }
+
+  @if (error()) {
+    <app-error-banner message="Failed to load orders." (retry)="refreshAll()" />
+  } @else if (isLoading()) {
+    <app-loading-spinner label="Loading orders…" />
+  } @else {
+    <div class="orders-by-agent__list">
+      @for (row of rows(); track row.agent.id) {
+        <app-agent-orders-group
+          [agent]="row.agent"
+          [orders]="row.orders"
+          [reassigningOrderId]="reassigningOrderId()"
+          (reassign)="onReassign($event)"
+        />
+      }
+    </div>
+  }
+</section>

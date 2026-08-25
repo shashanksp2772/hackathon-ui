@@ -1,0 +1,6 @@
+<span class="trigger-badge" [class.trigger-badge--auto]="isAutoReplan()">
+  @if (isAutoReplan()) {
+    <span class="trigger-badge__dot"></span>
+  }
+  {{ label() }}
+</span>

@@ -1,0 +1,88 @@
+.agent-orders-group {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.agent-orders-group__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.agent-orders-group__agent {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+}
+
+.agent-orders-group__name {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.agent-orders-group__id {
+  font-size: 11px;
+  color: #6b6559;
+}
+
+.agent-orders-group__count {
+  font-size: 12px;
+  color: #6b6559;
+  white-space: nowrap;
+}
+
+.agent-orders-group__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  th {
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6b6559;
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.agent-orders-group__order-id {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.agent-orders-group__empty {
+  margin: 0;
+  padding: 16px;
+  font-size: 13px;
+  color: #6b6559;
+}
+
+.agent-orders-group__row--warn {
+  background: #fdf2f0;
+}
+
+.agent-orders-group__warning {
+  margin-left: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #a32f22;
+}
+
+.agent-orders-group__reassign {
+  margin-left: 10px;
+}

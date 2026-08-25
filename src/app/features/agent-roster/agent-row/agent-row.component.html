@@ -1,0 +1,11 @@
+<div class="agent-row">
+  <div class="agent-row__info">
+    <span class="agent-row__name">{{ agent().name }}</span>
+    <span class="agent-row__id">{{ agent().id }}</span>
+  </div>
+  <span class="agent-row__load">{{ agent().activeOrderCount }} active</span>
+  <app-status-badge [status]="agent().status" />
+  <button matButton="outlined" type="button" [disabled]="submitting()" (click)="toggleOffline()">
+    {{ isOffline() ? 'Set Available' : 'Set Offline' }}
+  </button>
+</div>

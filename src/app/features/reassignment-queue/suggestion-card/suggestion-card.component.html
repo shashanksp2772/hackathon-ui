@@ -1,0 +1,28 @@
+<div class="suggestion-card">
+  <div class="suggestion-card__header">
+    <div class="suggestion-card__order">
+      <span class="suggestion-card__order-id">{{ suggestion().orderId }}</span>
+      @if (orderDescription()) {
+        <span class="suggestion-card__order-desc">{{ orderDescription() }}</span>
+      }
+    </div>
+    <app-trigger-badge [triggerReason]="suggestion().triggerReason" />
+  </div>
+
+  <div class="suggestion-card__body">
+    <div class="suggestion-card__recommendation">
+      Recommended <strong>{{ agentName() || suggestion().recommendedAgentId }}</strong>
+      <span class="suggestion-card__confidence">{{ confidencePercent() }}% confidence</span>
+    </div>
+    <p class="suggestion-card__reasoning">{{ suggestion().reasoning }}</p>
+  </div>
+
+  @if (actionError()) {
+    <p class="suggestion-card__error">{{ actionError() }}</p>
+  }
+
+  <div class="suggestion-card__actions">
+    <button matButton="outlined" type="button" [disabled]="submitting()" (click)="reject()">Reject</button>
+    <button matButton="filled" type="button" [disabled]="submitting()" (click)="accept()">Accept</button>
+  </div>
+</div>

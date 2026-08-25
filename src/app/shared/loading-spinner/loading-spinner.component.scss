@@ -1,0 +1,8 @@
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  color: var(--mat-sys-on-surface-variant, #666);
+  font-size: 13px;
+}

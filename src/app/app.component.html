@@ -1,0 +1,11 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <span class="app-toolbar__title">{{ title() }}</span>
+  <nav class="app-toolbar__nav">
+    <a routerLink="/" routerLinkActive="app-toolbar__link--active" [routerLinkActiveOptions]="{ exact: true }">
+      Reassignment Queue
+    </a>
+    <a routerLink="/orders" routerLinkActive="app-toolbar__link--active">Orders by Agent</a>
+  </nav>
+</mat-toolbar>
+
+<router-outlet />
